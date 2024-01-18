@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="quran_names_light_mode">#FFFFFF</color>
+    <color name="bismillah">#FF01579B</color>
+    <color name="background_item">#000000</color>
+    <color name="lightItemColor">#ffff</color>
+
+</resources>

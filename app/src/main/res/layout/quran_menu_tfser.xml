@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vmQuranMenuTfser"
+            type="com.elmaref.ui.quran.paged.tfseer.QuranMenuTfserViewModel" />
+    </data>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                >
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="اَلْبَقَرَة , اَلْآيَةُ 2"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/lightItemColor"
+                    android:textStyle="bold"
+                    />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/play_button"
+                    android:layout_width="29dp"
+                    android:layout_height="match_parent"
+                    app:lottie_fileName="play_button.json"
+                    android:textAlignment="center"
+                    app:lottie_colorFilter="@color/lightItemColor"
+                    android:layout_marginHorizontal="5dp"
+                    />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/playing_bar"
+                    android:layout_width="29dp"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    app:lottie_colorFilter="@color/lightItemColor"
+                    android:layout_marginHorizontal="5dp"
+                    app:lottie_fileName="playing_bar.json"
+                    app:lottie_loop="true"
+                    android:visibility="gone"
+                    />
+
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bookmark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_bookmarks"
+                android:drawablePadding="16dp"
+                android:padding="10dp"
+                android:text="@string/add_favorite_quran"
+                android:textColor="@color/lightItemColor"
+                android:autoLink="web"
+                android:background="?attr/selectableItemBackground"
+                android:textSize="16sp"
+                app:fontFamily="@font/regular" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/lastRead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_attachment"
+                android:drawablePadding="14dp"
+                android:background="?attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="تَعْيِينُ كَآخِرٍ قِرَاءَة"
+                android:textColor="@color/lightItemColor"
+                android:textSize="16sp"
+                app:drawableTint="@color/lightItemColor"
+                app:fontFamily="@font/regular" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/copy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_copy"
+                android:drawablePadding="14dp"
+                android:foreground="?selectableItemBackground"
+                android:padding="10dp"
+                android:text="نُسَخٌ"
+                android:textColor="@color/lightItemColor"
+                android:textSize="16sp"
+                app:drawableTint="@color/lightItemColor"
+                app:fontFamily="@font/regular" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_share"
+                android:drawablePadding="14dp"
+                android:foreground="?selectableItemBackground"
+                android:padding="10dp"
+                android:text="مُشَارَكَةٌ"
+                android:textColor="@color/lightItemColor"
+                android:textSize="16sp"
+                app:drawableTint="@color/lightItemColor"
+                app:fontFamily="@font/regular" />
+
+
+            <LinearLayout
+                android:id="@+id/viewTranslation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp"
+               >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="اَلتَّفْسِيرُ"
+                    android:textColor="@color/lightItemColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textTranslation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/regular"
+                    android:layout_marginTop="10dp"
+                    android:text="يخبر تعالى عن عظمته وجلاله وسعة سلطانه، أن جميع ما في السماوات والأرض من الحيوانات الناطقة والصامتة وغيرها، [والجوامد] تسبح بحمد ربها، وتنزهه عما لا يليق بجلاله، وأنها قانتة لربها، منقادة لعزته، قد ظهرت فيها آثار حكمته، ولهذا قال: وَهُوَ الْعَزِيزُ الْحَكِيمُ فهذا فيه بيان عموم افتقار المخلوقات العلوية والسفلية لربها، في جميع أحوالها، وعموم عزته وقهره للأشياء كلها، وعموم حكمته في خلقه وأمره."
+                    android:textColor="@color/lightItemColor" />
+            </LinearLayout>
+
+        </LinearLayout>
+</layout>

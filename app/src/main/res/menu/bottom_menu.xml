@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/firstScreen"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="ifRoom"
+        android:title="اَلْمُصَلِّي"
+        />
+
+    <item
+        android:id="@+id/secondScreen"
+        android:icon="@drawable/list_icon"
+        app:showAsAction="ifRoom"
+        android:title="اَلْقُرْآن اَلْكَرِيمِ"/>
+
+<!--    <item-->
+<!--        android:id="@+id/thirdScreen"-->
+<!--        android:icon="@drawable/ic_credit_card"-->
+<!--        app:showAsAction="ifRoom"-->
+<!--        android:title="اَلْأَذْكَارُ"/>-->
+</menu>

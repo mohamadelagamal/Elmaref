@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">اَلْمَعَارِفُ</string>
+    <string name="line">line</string>
+    <string name="add_favorite_quran">أَضِفْ إِلَى اَلْمُفَضَّلَةِ</string>
+    <string name="last_read">تَعْيِينُ كَآخِرٍ قِرَاءَة</string>
+    <string name="copy">نُسَخٌ</string>
+    <string name="share">مُشَارَكَةٌ</string>
+    <string name="quran">اَلْقُرْآنُ اَلْكَرِيْمُ</string>
+    <string name="quran_menu">اَلْقُرْآنُ اَلْكَرِيْمُ</string>
+    <string name="quran_menu_tfser">تَفْسِيْرٌ</string>
+    <string name="quran_menu_juzz">اَلْجُزْءُ</string>
+    <string name="quran_menu_surah">اَلسُّوْرَةُ</string>
+
+    <style name="remove_favorite_quran">أَزَالُهُ مِنْ اَلْمُفَضَّلَةِ</style>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="msg_permission_not_granted_yet">Location access not available yet</string>
+    <string name="your_location">Your Location: %f,%f</string>
+    <string name="qibla_direction">Qibla Direction: %f degrees from the north.</string>
+    <string name="msg_permission_granted">Location Access Granted, press GPS button now.</string>
+    <string name="location_not_ready">Location not ready, please press button again.</string>
+    <string name="pls_enable_location">Please turn on Location and press the button again.</string>
+    <string name="gps_settings_title">GPS settings</string>
+    <string name="gps_settings_text">GPS is not</string>
+    <string name="settings_button_ok">settings</string>
+    <string name="settings_button_cancel">no</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/qibla"
+        android:icon="@drawable/ic_qibla"
+        android:title="القبلة"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="إعدادات"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/account_circle"
+        android:title="معلومات عنا"
+        app:showAsAction="never" />
+<!--    <item-->
+<!--        android:id="@+id/overflowMenu"-->
+<!--        android:icon="@drawable/more_vert"-->
+<!--        android:title=""-->
+<!--        app:showAsAction="always">-->
+<!--        <menu>-->
+
+<!--        </menu>-->
+<!--    </item>-->
+</menu>

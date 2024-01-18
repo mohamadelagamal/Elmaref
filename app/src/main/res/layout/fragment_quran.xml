@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    </data>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background_item">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/background_item"
+
+                >
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:expandedTitleGravity="bottom"
+                    app:expandedTitleMarginEnd="16dp"
+                    app:expandedTitleMarginStart="16dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:contentScrim="@color/transparent"
+                    android:padding="10dp"
+                    app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_gravity="start"
+
+                                >
+
+                                <ImageView
+                                    android:id="@+id/target"
+                                    android:layout_width="38dp"
+                                    android:layout_height="38dp"
+                                    android:layout_margin="8dp"
+                                    android:backgroundTint="@color/neutral_200"
+                                    android:elevation="20dp"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_target"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/collection_book"
+                                    android:layout_width="38dp"
+                                    android:layout_height="38dp"
+                                    android:layout_margin="8dp"
+                                    android:backgroundTint="@color/neutral_200"
+                                    android:elevation="20dp"
+                                    android:padding="5dp"
+                                    android:src="@drawable/ic_collection_book"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/searchQuran"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="end|bottom"
+                                android:layout_marginEnd="30dp"
+                                android:fontFamily="@font/decotype"
+                                android:text="اَلْقُرْآن اَلْكَرِيمِ"
+                                android:textColor="@color/lightItemColor"
+                                android:textSize="25sp"
+                                android:drawablePadding="10dp"
+                                android:gravity="center_vertical" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="@color/transparent">
+
+                            <androidx.appcompat.widget.SearchView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/transparent"
+                                android:iconifiedByDefault="false"
+                                android:queryHint="Search"
+                                android:theme="@style/ThemeOverlay.AppCompat.DayNight"
+                                app:iconifiedByDefault="false"
+                                app:queryHint="البحث في اَلْقُرْآن اَلْكَرِيمِ"
+
+                                />
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/suran_name_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                tools:listitem="@layout/item_surah_name" />
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progress"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:indeterminate="true"-->
+<!--                android:indeterminateDrawable="@drawable/progress_bg"-->
+<!--                android:progress="0"-->
+<!--                android:layout_gravity="center_vertical|center_horizontal" />-->
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
