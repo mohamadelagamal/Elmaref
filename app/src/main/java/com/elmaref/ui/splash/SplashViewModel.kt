@@ -2,8 +2,7 @@ package com.elmaref.ui.splash
 
 import android.content.Context
 import androidx.lifecycle.liveData
-import com.elmaref.app.MyApplication
-import com.elmaref.room.tables.QuranTable
+import com.elmaref.data.room.tables.QuranTable
 import com.example.muslim.ui.base.activity.BaseViewModel
 
 class SplashViewModel: BaseViewModel<Navigator>() {

@@ -2,12 +2,11 @@ package com.example.quran.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elmaref.R
-import com.elmaref.app.MyApplication
+import com.elmaref.ui.app.MyApplication
 import com.elmaref.databinding.ItemSurahNameBinding
 import com.elmaref.ui.quran.paged.functions.toArabicNumber
 

@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.elmaref.model.enums.ResultEnum
-import com.elmaref.model.quran.page.VersesItem
-import com.elmaref.room.tables.QuranTable
+import com.elmaref.data.model.enums.ResultEnum
+import com.elmaref.data.model.quran.page.VersesItem
+import com.elmaref.data.room.tables.QuranTable
 import com.elmaref.ui.quran.paged.functions.parseAyahFromJson
 import com.elmaref.ui.quran.paged.functions.parseJuzFromJson
 import com.elmaref.ui.quran.paged.functions.parseSurahNamesFromJson

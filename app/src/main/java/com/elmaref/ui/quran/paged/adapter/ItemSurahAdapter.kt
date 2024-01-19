@@ -10,7 +10,7 @@ import android.view.animation.AlphaAnimation
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elmaref.R
-import com.elmaref.app.MyApplication
+import com.elmaref.ui.app.MyApplication
 import com.elmaref.databinding.ItemSurahPageBinding
 import com.elmaref.ui.quran.paged.functions.getBismillah
 import com.elmaref.ui.quran.paged.functions.getBlank

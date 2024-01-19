@@ -4,7 +4,7 @@ package com.elmaref.ui.quran.paged.quran
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.elmaref.app.MyApplication
+import com.elmaref.ui.app.MyApplication
 import com.example.muslim.ui.base.activity.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.elmaref.room.tables.QuranTable
+import com.elmaref.data.room.tables.QuranTable
 import com.example.muslim.ui.base.activity.BaseViewModel
 import com.quranscreen.model.quran.names.SurahDescription
 import kotlinx.coroutines.launch

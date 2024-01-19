@@ -7,7 +7,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.elmaref.R
 import com.elmaref.databinding.ActivityBoardLoadingBinding
-import com.elmaref.model.enums.ResultEnum
+import com.elmaref.data.model.enums.ResultEnum
 import com.elmaref.ui.splash.SplashAppActivity
 import com.example.muslim.ui.base.activity.BaseActivity
 

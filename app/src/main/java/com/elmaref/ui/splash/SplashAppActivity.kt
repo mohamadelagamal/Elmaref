@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.elmaref.R
-import com.elmaref.app.MyApplication
+import com.elmaref.ui.app.MyApplication
 import com.elmaref.databinding.ActivitySplashBinding
-import com.elmaref.room.tables.QuranTable
+import com.elmaref.data.room.tables.QuranTable
 import com.elmaref.ui.container.ContainerActivity
 import com.elmaref.ui.onboarding.OnBoardLoadingActivity
 import com.example.muslim.ui.base.activity.BaseActivity

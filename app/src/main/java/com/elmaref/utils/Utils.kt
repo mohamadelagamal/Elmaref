@@ -5,18 +5,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
-import android.widget.Adapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.elmaref.app.MyApplication
+import com.elmaref.ui.app.MyApplication
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
