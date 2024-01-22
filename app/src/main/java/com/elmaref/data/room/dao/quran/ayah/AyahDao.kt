@@ -10,6 +10,7 @@ import com.elmaref.data.room.tables.QuranTable
 
 @Dao
 interface AyahDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun putAyah(book:List<Ayah>)
     @Query("Select count() from ayah")

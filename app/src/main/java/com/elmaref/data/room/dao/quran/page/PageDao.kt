@@ -2,6 +2,7 @@ package com.elmaref.data.room.dao.quran.page
 
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,6 +20,8 @@ interface PageDao {
     suspend fun insertAllPages(pagesList: List<VersesItem>)
     @Query("SELECT * FROM verse_table ")
     fun getAllVerses(): Flow<MutableList<VersesItem>>
+    @Query("SELECT * FROM verse_table ")
+    suspend fun getAllVersesList(): MutableList<VersesItem>
     @Query("SELECT * FROM verse_table WHERE id IS :chapterId AND verse_number IS :verseNumber")
     suspend fun getAyahBySurahIdAndVerseNumber(chapterId: Int, verseNumber:Int): List<VersesItem>
     @Query("SELECT * FROM verse_table WHERE id IS :chapterId")

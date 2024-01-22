@@ -56,5 +56,5 @@ interface QuranBookMarkDao {
 }
 
 fun Context.getBookmarkDao(): QuranBookMarkDao {
-    return QuranTable.getDatabase(this).quranBookMarkDao()
+    return QuranTable.initializeDatabase(this).quranBookMarkDao()
 }

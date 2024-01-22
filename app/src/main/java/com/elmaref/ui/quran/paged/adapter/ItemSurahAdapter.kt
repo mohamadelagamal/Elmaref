@@ -50,10 +50,10 @@ class ItemSurahAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(binding: ItemSurahViewHolder, itemAdapterNumber: Int) {
 
-        val versesItem = MyApplication.quranFlowValue.filter { it.page == pagesQuranPager[itemAdapterNumber] }
+        val versesItem = MyApplication.quranValue.filter { it.page == pagesQuranPager[itemAdapterNumber] }
         val words = versesItem.flatMap { it.words }
-        val juz = MyApplication.juzFLowData
-        val surahName = MyApplication.surahNameFlowData
+        val juz = MyApplication.juzData
+        val surahName = MyApplication.surahNameData
 
         val juzFilter = juz?.filter { it.start_page!! <= pagesQuranPager[itemAdapterNumber] && it.end_page!! >= pagesQuranPager[itemAdapterNumber] }
 

@@ -15,7 +15,7 @@ interface SurahNameDao {
     fun insertAllSurahName(surahNameList: List<SurahName>)
 
     @Query("SELECT * FROM surah_name_table")
-      fun getAllSurahName(): List<SurahName>
+     suspend fun getAllSurahName(): List<SurahName>
 
     @Query("SELECT * FROM surah_name_table WHERE id is :id")
     suspend fun getSurahById(id:Int): List<SurahName>

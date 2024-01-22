@@ -1,25 +1,13 @@
 package com.elmaref.ui.quran.paged.tfseer
 
 import android.animation.ValueAnimator
-import android.graphics.ColorFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.graphics.toColor
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
-import com.airbnb.lottie.LottieListener
-import com.airbnb.lottie.LottieProperty
-import com.airbnb.lottie.SimpleColorFilter
-import com.airbnb.lottie.model.KeyPath
-import com.airbnb.lottie.value.LottieValueCallback
 import com.elmaref.R
 import com.elmaref.databinding.QuranMenuTfserBinding
 import com.elmaref.data.model.quran.mark.BookmarkType
@@ -33,7 +21,6 @@ import com.elmaref.ui.quran.paged.functions.getArabic
 import com.elmaref.ui.quran.paged.functions.toArabicNumber
 import com.elmaref.ui.quran.paged.tfseer.options.share.ShareAyahActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.textview.MaterialTextView
 import com.quranscreen.room.dao.quran.names.getSurahDao
 import com.quranscreen.utils.io
 import com.quranscreen.utils.main
@@ -161,7 +148,7 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
                         val ayah_id =
                             getAyahDao().getAyahBySurahIdAndVerseNumber(surah, ayah)
                                 .firstOrNull()?.id
-                        val mark = QuranTable.getDatabase(requireContext()).quranBookMarkDao()
+                        val mark = QuranTable.initializeDatabase(requireContext()).quranBookMarkDao()
                         val isBookmarked =
                             mark.getBookmarkByIdSuspend(ayah_id.toString()) != null
                         if (!isBookmarked) {

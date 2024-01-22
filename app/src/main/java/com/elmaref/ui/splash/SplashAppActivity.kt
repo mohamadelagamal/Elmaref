@@ -3,8 +3,11 @@ package com.elmaref.ui.splash
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.ViewModelProvider
 import com.elmaref.R
+import com.elmaref.data.repository.interfaces.offline.QuranOfflineDataSource
 import com.elmaref.ui.app.MyApplication
 import com.elmaref.databinding.ActivitySplashBinding
 import com.elmaref.data.room.tables.QuranTable
@@ -20,12 +23,11 @@ class SplashAppActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(),
     var sharedPreferences: SharedPreferences? = null
     // shared editor is used to edit the data that saved in shared preferences and it's used to edit data like user name or password or any data that you want to edit in the device
     var sharedEditor: SharedPreferences.Editor? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vmSplash = viewModel
         viewModel.navigator=this
-        juz()
-        surahName()
         // check if first run or not and move to onboarding activity
         sharedPreferences = getSharedPreferences("onBoard", MODE_PRIVATE)
         sharedEditor = sharedPreferences!!.edit()
@@ -37,20 +39,17 @@ class SplashAppActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(),
         }
         else {
            //  check if data is loaded or not and move to loading activity
-            viewModel.getPageQuran(this).observe(this,{
-              if (!it.size.equals(6236)){
-               onBoardingMove()
-              }
+            viewModel.getPageQuran().observe(this,{
+                if (!it.size.equals(6236)){
+                    onBoardingMove()
+                }
                 else{
                     // create database for quran
-                    MyApplication.quranFlowValue = it
+                    MyApplication.quranValue = it
+                    containerMove()
 
-                  containerMove()
-
-              }
+                }
             })
-
-
         }
     }
 
@@ -73,25 +72,7 @@ class SplashAppActivity : BaseActivity<ActivitySplashBinding,SplashViewModel>(),
     override fun makeViewModelProvider(): SplashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
 
 
-    private fun surahName() {
-        io {
-            val surahName = QuranTable.buildDatabase(this).surahNameDao().getAllSurahName()
-            main {
-                MyApplication.surahNameFlowData = surahName
-            }
-        }
 
-        viewModel.getSurahInfoItem(this).observe(this, {
-            MyApplication.surahDescriptionObserver = it
-        })
-    }
 
-    private fun juz() {
-        io {
-            val juz = QuranTable.buildDatabase(this).juzDao().getAllJuz()
-            main {
-                MyApplication.juzFLowData = juz
-            }
-        }
-    }
+
 }

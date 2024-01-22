@@ -13,6 +13,6 @@ interface JuzDao {
     fun insertAllJuz(juzList: List<Juz>)
 
     @Query("SELECT * FROM juz_table")
-     fun getAllJuz():List<Juz>
+     suspend fun getAllJuz():List<Juz>
 
 }

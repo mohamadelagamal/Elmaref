@@ -169,16 +169,16 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <RelativeLayout
-                android:id="@+id/viewHeaderFooter"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:background="@drawable/ic_footer"
-                android:elevation="2dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/viewHeaderFooter"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="32dp"-->
+<!--                android:background="@drawable/ic_footer"-->
+<!--                android:elevation="2dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent">-->
 
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

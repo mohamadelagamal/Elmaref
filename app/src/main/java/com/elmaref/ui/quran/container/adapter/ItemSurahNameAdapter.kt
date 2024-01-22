@@ -20,7 +20,7 @@ class ItemSurahNameAdapter(
     RecyclerView.Adapter<ItemSurahNameAdapter.ViewHolder>() {
 
     // create the view holder class
-    val surahNameList = MyApplication.surahNameFlowData
+    val surahNameList = MyApplication.surahNameData
     class ViewHolder(var viewDataBinding: ItemSurahNameBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
         // init the views from item_surah_name.xml
 
@@ -33,7 +33,7 @@ class ItemSurahNameAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val surahInfoItem = MyApplication.surahDescriptionObserver
+        val surahInfoItem = MyApplication.surahDescription
 
         val surahName = surahNameList?.get(position)
         holder.viewDataBinding.tvSoraNum.text = surahName?.id.toString().toArabicNumber()
