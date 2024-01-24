@@ -11,17 +11,11 @@ import androidx.databinding.DataBindingUtil
 import com.elmaref.R
 import com.elmaref.databinding.QuranMenuTfserBinding
 import com.elmaref.data.model.quran.mark.BookmarkType
-import com.elmaref.data.model.quran.mark.QuranBookMark
-import com.elmaref.data.room.dao.quran.ayah.getAyahDao
-import com.elmaref.data.room.dao.quran.mark.getBookmarkDao
-import com.elmaref.data.room.dao.quran.tfseer.getTafseerDao
-import com.elmaref.data.room.tables.QuranTable
 import com.elmaref.ui.quran.paged.functions.Copy
 import com.elmaref.ui.quran.paged.functions.getArabic
 import com.elmaref.ui.quran.paged.functions.toArabicNumber
 import com.elmaref.ui.quran.paged.tfseer.options.share.ShareAyahActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.quranscreen.room.dao.quran.names.getSurahDao
 import com.quranscreen.utils.io
 import com.quranscreen.utils.main
 
@@ -78,12 +72,17 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel = QuranMenuTfserViewModel()
         surah = getSurah()
         ayah = getAyah()
         page = getPage()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         setSurahNameAyahNumber()
         copyFunction()
         shareFunction()
@@ -132,12 +131,11 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
     }
     private fun bookMarkFunction() {
         io {
-            ayahId =
-                getAyahDao().getAyahBySurahIdAndVerseNumber(surah, ayah).firstOrNull()?.id
+            ayahId = viewModel.getAyahId(surah, ayah)
             Log.d("QuranMenuTfser", "ayahId: $ayahId")
             main {
-                isBookmarked = requireContext().getBookmarkDao()
-                    .getBookmarkByIdSuspend(ayahId.toString()) != null
+                isBookmarked = viewModel.getBookMarkDao(ayahId.toString())
+
                 if (isBookmarked) {
                     changeBookMark("أَزَالُهُ مِنْ اَلْمُفَضَّلَةِ", true)
                 } else {
@@ -145,24 +143,16 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
                 }
                 viewDataBinding.bookmark.setOnClickListener {
                     io {
-                        val ayah_id =
-                            getAyahDao().getAyahBySurahIdAndVerseNumber(surah, ayah)
-                                .firstOrNull()?.id
-                        val mark = QuranTable.initializeDatabase(requireContext()).quranBookMarkDao()
-                        val isBookmarked =
-                            mark.getBookmarkByIdSuspend(ayah_id.toString()) != null
+                        val ayah_id = viewModel.getAyahId(surah, ayah)
+                       // val mark = QuranTable.initializeDatabase(requireContext()).quranBookMarkDao()
+                        val isBookmarked =viewModel.getBookMarkDao(ayah_id.toString())
                         if (!isBookmarked) {
-                            mark.insertBookMark(
-                                QuranBookMark(
-                                    idString = ayah_id.toString(),
-                                    type = BookmarkType.QURAN
-                                )
-                            )
+                            viewModel.insertBookMark(ayah_id.toString(), BookmarkType.QURAN)
                             main {
                                 changeBookMark("أَزَالُهُ مِنْ اَلْمُفَضَّلَةِ", true)
                             }
                         } else {
-                            mark.deleteBookmark(ayah_id.toString(), BookmarkType.QURAN)
+                            viewModel.deleteBookMark(ayah_id.toString(), BookmarkType.QURAN)
                             main {
                                 changeBookMark("أَضِفْ إِلَى اَلْمُفَضَّلَةِ")
                             }
@@ -196,7 +186,7 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
     private fun setSurahNameAyahNumber() {
         io {
             // get surah name from database
-            getSurahDao().getSurahById(surah).firstOrNull()?.let {
+            viewModel.getSurahById(surah).firstOrNull()?.let {
                 main {
                     viewDataBinding.title.text =
                         " ${it.translation?.get(2)?.text} ,  اَلْآيَةُ ( ${ayah.toArabicNumber()} )"
@@ -205,8 +195,7 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
 
             }
             // get Tafser from database by surah and ayah number
-            tafseerId =
-                getTafseerDao().getAyahBySurahIdAndVerseNumber(surah, ayah).firstOrNull()?.text!!
+            tafseerId = viewModel.getTfseerByIdAndVerseNumber(surah, ayah).firstOrNull()?.text!!
             main {
                 viewDataBinding.textTranslation.text = tafseerId
             }
@@ -216,9 +205,8 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
     private fun shareFunction() {
         viewDataBinding.share.setOnClickListener {
             io {
-                val surahName =
-                    getSurahDao().getSurahById(surah).firstOrNull()?.translation?.get(2)?.text
-                val text = getAyahDao().getAyahBySurahIdAndVerseNumber(surah, ayah).first().text
+                val surahName = viewModel.getSurahById(surah).firstOrNull()?.translation?.get(2)?.text
+                val text = viewModel.getAyah(surah, ayah).first().text
                 val arabic = text.getArabic()
                 main {
 
@@ -242,7 +230,7 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
     private fun copyFunction() {
         viewDataBinding.copy.setOnClickListener {
             io {
-                getAyahDao().getAyahBySurahIdAndVerseNumber(surah, ayah).firstOrNull()?.let {
+                viewModel.getAyah(surah, ayah).firstOrNull()?.let {
                     main {
                         val arabicText = it.text.getArabic()
                         // copy arabic text to clipboard

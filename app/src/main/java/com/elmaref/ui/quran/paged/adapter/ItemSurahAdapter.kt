@@ -26,8 +26,7 @@ class ItemSurahAdapter(
     val pagesQuranPager: List<Int>,
     val context: Context, val page: Int? = null,
 ) : RecyclerView.Adapter<ItemSurahAdapter.ItemSurahViewHolder>() {
-    class ItemSurahViewHolder(val viewDataBinding: ItemSurahPageBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
+    class ItemSurahViewHolder(val viewDataBinding: ItemSurahPageBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
         val layoutItemQuran = viewDataBinding.container
         val pageNumberView = viewDataBinding.surahNumber
         val juzNumber = viewDataBinding.juzNumber
@@ -109,67 +108,8 @@ class ItemSurahAdapter(
                 }
             }
 
-//            Log.e("TAG100", "onBindViewHolder: ${binding.layoutItemQuran.childCount}")
-//
-//            val layout: LinearLayout = binding.layoutItemQuran
-//            val count = layout.childCount
-//            var v: View? = null
-//            for (i in 0 until count) {
-//                val verse = words?.let { getVerseByLine(i, it) }
-//                v = layout.getChildAt(i)
-//                v.setOnTouchListener { v, event ->
-//                    when (event.action) {
-//                        MotionEvent.ACTION_UP -> {
-//                            val layout: Layout? = (v as TextView).layout
-//                            val x = event!!.x
-//                            val y = event.y.toInt()
-//                            if (layout != null) {
-//                                val line: Int = layout.getLineForVertical(y) // get the line number from y position
-//                                var offset: Int = layout.getOffsetForHorizontal(line, x) - 1 //
-//                                if (offset == -1) {
-//                                    offset = 0
-//                                }
-//
-//                                // get the word by offset (position) and filter the words by the word code
-//                                val htmlEscapedVerse = verse?.replace("<font color=\"#048383\">", "")
-//                                    ?.replace("</font>", "")
-//                                versesItem.filter {
-//                                    it.words.firstOrNull()?.code_v1?.contains(
-//                                        htmlEscapedVerse?.get(offset)!!
-//                                    ) == true
-//                                }
-//                                    .firstOrNull()
-//                                    ?.let { word ->
-//
-//                                        // scroll to the selected word
-//                                        word.verse_key?.split(":")?.get(0)?.toInt().let { surah ->
-//                                            word.verse_key?.split(":")?.get(1)?.toInt()
-//                                                .let { ayah ->
-//                                                    Log.e("AYAlINE", "ACTION_MOMENT: $surah $ayah")
-//                                                    QuranMenuTfser.newInstance(
-//                                                        surah ?: 1,
-//                                                        ayah ?: 1,
-//                                                        page
-//                                                    ).show(
-//                                                        (context as AppCompatActivity).supportFragmentManager,
-//                                                        ""
-//                                                    )
-//
-//                                                    offset = 0
-//                                                }
-//                                        }
-//                                    }
-//                            }
-//                        }
-//                    }
-//                    true
-//                }
-//
-//            }
         }
 
-
-        //setFadeAnimation(binding.layoutItemQuran)
     }
 
     // check if the item is finished or not to remove all views and add new views

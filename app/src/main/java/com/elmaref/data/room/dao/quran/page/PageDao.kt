@@ -29,6 +29,3 @@ interface PageDao {
 
 
 }
-fun Context.getAyahDao(): PageDao {
-    return QuranTable.buildDatabase(this).quranDao()
-}

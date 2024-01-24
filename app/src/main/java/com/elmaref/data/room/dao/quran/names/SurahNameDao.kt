@@ -20,6 +20,3 @@ interface SurahNameDao {
     @Query("SELECT * FROM surah_name_table WHERE id is :id")
     suspend fun getSurahById(id:Int): List<SurahName>
 }
-fun Fragment.getSurahDao(): SurahNameDao {
-    return QuranTable.buildDatabase(requireActivity()).surahNameDao()
-}

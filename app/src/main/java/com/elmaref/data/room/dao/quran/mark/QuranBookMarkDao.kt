@@ -14,7 +14,10 @@ import com.elmaref.data.room.tables.QuranTable
 @Dao
 interface QuranBookMarkDao {
 
-    //
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    // insert bookmark to quran_bookmark table in database using suspend function
+    suspend fun insertBookMark(bookmark: QuranBookMark):Long
+
     @Query("SELECT * FROM quran_bookmark") // get all bookmark from quran_bookmark table in database using live data
     fun getBookmarks(): LiveData<List<QuranBookMark>>
     @Query("SELECT * FROM quran_bookmark WHERE highlighted IS :highlighted")
@@ -40,9 +43,6 @@ interface QuranBookMarkDao {
     // get all bookmark from quran_bookmark table in database using live data where idString is ids
     fun getBookmarkById(ids:String): LiveData<QuranBookMark?>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    // insert bookmark to quran_bookmark table in database using suspend function
-    suspend fun insertBookMark(bookmark: QuranBookMark):Long
 
     @Query("DELETE FROM quran_bookmark WHERE :ids IS idString AND type IS :type")
     // delete bookmark from quran_bookmark table in database using suspend function where idString is ids and type is quran

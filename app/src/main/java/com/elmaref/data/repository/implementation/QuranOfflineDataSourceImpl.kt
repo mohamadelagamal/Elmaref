@@ -1,8 +1,8 @@
 package com.elmaref.data.repository.implementation
 
-import androidx.lifecycle.LiveData
 import com.elmaref.data.model.quran.ayah.Ayah
 import com.elmaref.data.model.quran.joz.Juz
+import com.elmaref.data.model.quran.mark.QuranBookMark
 import com.elmaref.data.model.quran.page.VersesItem
 import com.elmaref.data.model.quran.tafseer.Tafseer
 import com.elmaref.data.repository.interfaces.offline.QuranOfflineDataSource
@@ -18,6 +18,10 @@ class QuranOfflineDataSourceImpl(val myDataBase:QuranTable):QuranOfflineDataSour
 
     override suspend fun getQuranSurahNames(): List<SurahName> {
         return myDataBase.surahNameDao().getAllSurahName()
+    }
+
+    override suspend fun getQuranSurahNamesById(id: Int): List<SurahName> {
+        return myDataBase.surahNameDao().getSurahById(id)
     }
 
     override suspend fun insertQuranSurahNamesDescription(quranNames: List<SurahDescription>) {
@@ -51,15 +55,35 @@ class QuranOfflineDataSourceImpl(val myDataBase:QuranTable):QuranOfflineDataSour
 
 
     override suspend fun insertAyah(ayah: List<Ayah>) {
-        myDataBase.ayahDao().putAyah(ayah)
+        myDataBase.ayahDao().insertAyah(ayah)
     }
 
     override suspend fun getAyahCount(): Int {
         return myDataBase.ayahDao().getAyahCount()
     }
 
+    override suspend fun getAyah(surahId: Int, verseId: Int): List<Ayah> {
+        return myDataBase.ayahDao().getAyah(surahId,verseId)
+    }
+
     override suspend fun insertTfseer(tfseer: List<Tafseer>) {
         myDataBase.tfseerDao().insertAllTfseer(tfseer)
+    }
+
+    override suspend fun getTfseerByIdAndVerseNumber(surahId: Int, verseId: Int): List<Tafseer> {
+        return myDataBase.tfseerDao().getATfseerByIdAndVerseNumber(surahId,verseId)
+    }
+
+    override suspend fun insertBookMark(bookMark: QuranBookMark) {
+        myDataBase.quranBookMarkDao().insertBookMark(bookMark)
+    }
+
+    override suspend fun getBookMarkById(id: String): QuranBookMark? {
+        return myDataBase.quranBookMarkDao().getBookmarkByIdSuspend(id)
+    }
+
+    override suspend fun deleteBookmark(id: String, type: String) {
+        myDataBase.quranBookMarkDao().deleteBookmark(id,type)
     }
 
 

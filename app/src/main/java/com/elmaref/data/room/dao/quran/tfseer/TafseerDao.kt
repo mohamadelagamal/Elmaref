@@ -14,10 +14,7 @@ interface TafseerDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAllTfseer(tfseerList: List<Tafseer>)
     @Query("SELECT * FROM tafseer_table WHERE number IS :surahNumber AND aya IS :verseNumber")
-    suspend fun getAyahBySurahIdAndVerseNumber(surahNumber: Int, verseNumber:Int): List<Tafseer>
+    suspend fun getATfseerByIdAndVerseNumber(surahNumber: Int, verseNumber:Int): List<Tafseer>
 
 
-}
-fun Fragment.getTafseerDao(): TafseerDao {
-    return QuranTable.buildDatabase(requireActivity()).tfseerDao()
 }

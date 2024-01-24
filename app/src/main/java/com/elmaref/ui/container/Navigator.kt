@@ -5,4 +5,5 @@ import com.elmaref.data.model.quran.page.VersesItem
 
 interface Navigator {
 
+
 }

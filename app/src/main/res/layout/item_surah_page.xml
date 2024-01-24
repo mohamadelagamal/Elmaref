@@ -6,7 +6,8 @@
     <data>
         <variable
             name="item_surah"
-            type="com.elmaref.data.model.quran.page.WordItem" />
+            type="com.elmaref.data.model.quran.page.WordItem"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
