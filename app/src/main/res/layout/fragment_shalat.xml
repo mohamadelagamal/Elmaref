@@ -63,7 +63,7 @@
                 android:id="@+id/viewHeaderBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/radial"
+                android:background="#003737"
                 android:elevation="0dp"
                 app:layout_constraintTop_toTopOf="parent" />
 

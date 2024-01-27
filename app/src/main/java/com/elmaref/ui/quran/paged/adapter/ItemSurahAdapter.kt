@@ -24,7 +24,7 @@ import com.quranscreen.utils.main
 
 class ItemSurahAdapter(
     val pagesQuranPager: List<Int>,
-    val context: Context, val page: Int? = null,
+    val context: Context,
 ) : RecyclerView.Adapter<ItemSurahAdapter.ItemSurahViewHolder>() {
     class ItemSurahViewHolder(val viewDataBinding: ItemSurahPageBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
         val layoutItemQuran = viewDataBinding.container
@@ -109,14 +109,16 @@ class ItemSurahAdapter(
             }
 
         }
+      //  setFadeAnimation(binding.layoutItemQuran)
 
     }
+
 
     // check if the item is finished or not to remove all views and add new views
     override fun onViewRecycled(holder: ItemSurahViewHolder) { // this method is called when the item is finished
         super.onViewRecycled(holder)
         holder.layoutItemQuran.removeAllViews()
-        // setFadeAnimation(holder.layoutItemQuran)
+      //  setFadeAnimation(holder.layoutItemQuran)
     }
 
     // make recycler view show movement between each element
@@ -126,6 +128,4 @@ class ItemSurahAdapter(
             1000 // duration of the animation in milliseconds (1000 milliseconds = 1 second) so the animation will take 1 second to finish from 0.0f to 1.0f
         view.startAnimation(anim)
     }
-
-
 }

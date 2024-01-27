@@ -12,10 +12,5 @@ import kotlinx.coroutines.launch
 
 class QuranContainerViewModel: ViewModel() {
 
-    fun getSurahInfoItem(context: Context) = liveData {
-        val db = QuranTable.buildDatabase(context).surahDescriptionDao()
-        db.getAllSurahDescription().let { surahDescriptionList ->
-            emit(surahDescriptionList)
-        }
-    }
+
 }

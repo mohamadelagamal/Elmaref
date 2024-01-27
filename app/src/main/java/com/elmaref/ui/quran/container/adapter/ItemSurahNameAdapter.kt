@@ -13,9 +13,7 @@ import com.elmaref.ui.quran.paged.functions.toArabicNumber
 // create a itemsurahnameadtaper thats inflate the item_surah_name.xml and give it list of surahname
 // crate the class now
 class ItemSurahNameAdapter(
-  //  val surahNameList2: List<SurahName>?=null,
     val context: Context,
-    //val surahInfoItem2: List<SurahDescription> ?=null
 ) :
     RecyclerView.Adapter<ItemSurahNameAdapter.ViewHolder>() {
 
@@ -48,8 +46,16 @@ class ItemSurahNameAdapter(
 
         holder.viewDataBinding.surahNameDiscAr.text =
             " اَلْآيَاتِ :  ${surahInfoItem?.get(position)?.count?.toArabicNumber()} | اَلْمَكَانَ : ${surahInfoItem?.get(position)?.place}"
-    }
 
+        holder.viewDataBinding.itemSoraName.setOnClickListener { // set the on click listener on the root view
+            onItemClickListener?.onItemClick(position+1)
+        }
+
+    }
+    var onItemClickListener: OnItemClickListener? = null
+    interface OnItemClickListener {
+        fun onItemClick(pos: Int)
+    }
 
     override fun getItemCount(): Int {
         return surahNameList?.size !!

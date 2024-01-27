@@ -16,7 +16,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_permission_not_granted_yet">Location access not available yet</string>
     <string name="your_location">Your Location: %f,%f</string>
-    <string name="qibla_direction">Qibla Direction: %f degrees from the north.</string>
+    <string name="qibla_direction">اتجاه القبلة: %f درجة من الشمال.</string>
     <string name="msg_permission_granted">Location Access Granted, press GPS button now.</string>
     <string name="location_not_ready">Location not ready, please press button again.</string>
     <string name="pls_enable_location">Please turn on Location and press the button again.</string>

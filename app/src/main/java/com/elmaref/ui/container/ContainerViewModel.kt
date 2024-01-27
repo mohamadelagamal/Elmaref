@@ -8,6 +8,8 @@ import com.elmaref.data.repository.interfaces.offline.QuranOfflineDataSource
 import com.elmaref.data.room.tables.QuranTable
 import com.elmaref.ui.app.MyApplication
 import com.example.muslim.ui.base.activity.BaseViewModel
+import com.quranscreen.model.quran.names.SurahDescription
+import com.quranscreen.model.quran.names.SurahName
 import kotlinx.coroutines.launch
 
 class ContainerViewModel: BaseViewModel<Navigator>() {
@@ -26,12 +28,16 @@ class ContainerViewModel: BaseViewModel<Navigator>() {
             MyApplication.juzData = juz
         }
     }
-
+    suspend  fun getSurahName():List<SurahName>{
+           return quranDataRepository.getQuranSurahNames()
+    }
+    suspend fun getSurahDescription():List<SurahDescription>{
+        return quranDataRepository.getQuranSurahNamesDescription()
+    }
     fun getSurahNames(){
         viewModelScope.launch {
             val surahName = quranDataRepository.getQuranSurahNames()
             MyApplication.surahNameData = surahName
-
         }
         viewModelScope.launch {
             val surahDescription = quranDataRepository.getQuranSurahNamesDescription()
