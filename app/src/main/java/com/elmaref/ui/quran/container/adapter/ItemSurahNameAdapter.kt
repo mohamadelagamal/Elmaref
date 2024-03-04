@@ -60,4 +60,5 @@ class ItemSurahNameAdapter(
     override fun getItemCount(): Int {
         return surahNameList?.size !!
     }
+
 }

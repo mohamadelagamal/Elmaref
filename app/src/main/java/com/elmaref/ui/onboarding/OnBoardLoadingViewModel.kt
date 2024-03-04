@@ -1,6 +1,7 @@
 package com.elmaref.ui.onboarding
 
 import android.content.Context
+import android.os.FileUtils
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -101,6 +102,7 @@ class OnBoardLoadingViewModel : BaseViewModel<Navigator>() {
             context?.let { savedPageToDB(context = it, page = i) }
             // return all verses from database
         }
+
     }
 
     suspend fun savedJuzToDB(context: Context?) {
@@ -115,7 +117,8 @@ class OnBoardLoadingViewModel : BaseViewModel<Navigator>() {
         var versesItem =
             Gson().fromJson<List<VersesItem>>(json, object : TypeToken<List<VersesItem>>() {}.type)
         // get all items from versesItem
-        versesItem.map { it.page = page } // set page number for each item
+        versesItem.map {
+            it.page = page } // set page number for each item
         Log.e("versesItem", "${page}")
         quranDataRepository.insertVerses(versesItem)
 

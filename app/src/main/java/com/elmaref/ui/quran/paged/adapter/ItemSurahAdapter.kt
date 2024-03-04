@@ -3,6 +3,7 @@ package com.elmaref.ui.quran.paged.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.elmaref.ui.quran.paged.functions.getSeparatorByLineAndPage
 import com.elmaref.ui.quran.paged.functions.getSurah
 import com.elmaref.ui.quran.paged.functions.getVerseByLine
 import com.elmaref.ui.quran.paged.functions.toArabicNumber
+import com.quranscreen.utils.io
 import com.quranscreen.utils.main
 
 
@@ -26,7 +28,8 @@ class ItemSurahAdapter(
     val pagesQuranPager: List<Int>,
     val context: Context,
 ) : RecyclerView.Adapter<ItemSurahAdapter.ItemSurahViewHolder>() {
-    class ItemSurahViewHolder(val viewDataBinding: ItemSurahPageBinding) : RecyclerView.ViewHolder(viewDataBinding.root) {
+    class ItemSurahViewHolder(val viewDataBinding: ItemSurahPageBinding) :
+        RecyclerView.ViewHolder(viewDataBinding.root) {
         val layoutItemQuran = viewDataBinding.container
         val pageNumberView = viewDataBinding.surahNumber
         val juzNumber = viewDataBinding.juzNumber
@@ -49,12 +52,14 @@ class ItemSurahAdapter(
     @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(binding: ItemSurahViewHolder, itemAdapterNumber: Int) {
 
-        val versesItem = MyApplication.quranValue.filter { it.page == pagesQuranPager[itemAdapterNumber] }
+        val versesItem =
+            MyApplication.quranValue.filter { it.page == pagesQuranPager[itemAdapterNumber] }
         val words = versesItem.flatMap { it.words }
         val juz = MyApplication.juzData
         val surahName = MyApplication.surahNameData
 
-        val juzFilter = juz?.filter { it.start_page!! <= pagesQuranPager[itemAdapterNumber] && it.end_page!! >= pagesQuranPager[itemAdapterNumber] }
+        val juzFilter =
+            juz?.filter { it.start_page!! <= pagesQuranPager[itemAdapterNumber] && it.end_page!! >= pagesQuranPager[itemAdapterNumber] }
 
         main { // main{} is used to run the code in main thread because we can't update the UI from IO thread
             binding.pageNumberView.text =
@@ -82,50 +87,71 @@ class ItemSurahAdapter(
                 if (verse!!.isBlank()) {
                     getSeparatorByLineAndPage(context, itemAdapterNumber + 1, i)?.let {
                         if (it.bismillah == true) {
-                            binding.layoutItemQuran.addView(getBismillah(context))
+                            val bismillahView = getBismillah(context)
+                            bismillahView.setOnClickListener {
+                                // Handle click event
+                                // Get Ayah using x and y
+                                Log.e("ItemSurahAdapter", "onBindViewHolder: ")
+                            }
+                            binding.layoutItemQuran.addView(bismillahView)
                         } else if (it.surah != null) {
-                            binding.layoutItemQuran.addView(
-                                getSurah(
-                                    it.unicode.toString(),
-                                    context
-                                )
-                            )
+                            val surahView = getSurah(it.unicode.toString(), context)
+                            surahView.setOnClickListener {
+                                // Handle click event
+                                // Get Ayah using x and y
+                                Log.e("ItemSurahAdapter", "onBindViewHolder: ")
+                            }
+                            binding.layoutItemQuran.addView(surahView)
                         }
                     } ?: kotlin.run {
-                        binding.layoutItemQuran.addView(getBlank(context))
+                        val blankView = getBlank(context)
+                        blankView.setOnClickListener {
+                            // Handle click event
+                            // Get Ayah using x and y
+                            Log.e("ItemSurahAdapter", "onBindViewHolder: ")
+                        }
+                        binding.layoutItemQuran.addView(blankView)
                     }
 
                 } else {
-                    binding.layoutItemQuran.addView(
-                        getLine(
-                            verse = verse,
-                            words = versesItem,
-                            context = context,
-                            page = itemAdapterNumber + 1,
-                            line = i
-                        )
+                    val lineView = getLine(
+                        verse = verse,
+                        words = versesItem,
+                        context = context,
+                        page = itemAdapterNumber + 1,
+                        line = i
                     )
+                    lineView.setOnClickListener {
+                        // Handle click event
+                        // Get Ayah using x and y
+                        Log.e("ItemSurahAdapter", "onBindViewHolder: ")
+                    }
+                    binding.layoutItemQuran.addView(lineView)
                 }
             }
-
         }
-      //  setFadeAnimation(binding.layoutItemQuran)
+      //
 
-    }
+}
 
 
-    // check if the item is finished or not to remove all views and add new views
-    override fun onViewRecycled(holder: ItemSurahViewHolder) { // this method is called when the item is finished
-        super.onViewRecycled(holder)
-        holder.layoutItemQuran.removeAllViews()
-      //  setFadeAnimation(holder.layoutItemQuran)
-    }
+// check if the item is finished or not to remove all views and add new views
+override fun onViewRecycled(holder: ItemSurahViewHolder) { // this method is called when the item is finished
+    super.onViewRecycled(holder)
+    holder.layoutItemQuran.removeAllViews()
+    //  setFadeAnimation(holder.layoutItemQuran)
+}
 
-    // make recycler view show movement between each element
-    private fun setFadeAnimation(view: View) {
-        val anim = AlphaAnimation(0.0f, 1.0f) // make the view transparent to visible again with animation
-        anim.duration =
-            1000 // duration of the animation in milliseconds (1000 milliseconds = 1 second) so the animation will take 1 second to finish from 0.0f to 1.0f
-        view.startAnimation(anim)
-    }
+// make recycler view show movement between each element
+private fun setFadeAnimation(view: View) {
+    val anim =
+        AlphaAnimation(0.0f, 1.0f) // make the view transparent to visible again with animation
+    anim.duration =
+        1000 // duration of the animation in milliseconds (1000 milliseconds = 1 second) so the animation will take 1 second to finish from 0.0f to 1.0f
+    view.startAnimation(anim)
+}
+
+
+
+
 }

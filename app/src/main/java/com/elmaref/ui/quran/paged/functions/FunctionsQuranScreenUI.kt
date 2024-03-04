@@ -11,7 +11,6 @@ import android.graphics.Typeface
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.text.Layout
-import android.text.SpannableString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -90,12 +89,25 @@ fun getLine(
             setOnTouchListener { v, event ->
                 when (event.action) {
                     MotionEvent.ACTION_UP -> {
+                        var word = words.flatMap { ayah->
+                            ayah.words.apply {
+                                forEach {
+                                    it.verse_key = ayah.verse_key
+                                    it.page = ayah.page
+                                }
+                            }
+
+                        }
+                        Log.e("The event Actions Moment",    "  words: $word  " )
+
                         val layout: Layout? = (v as TextView).layout
                         val x = event!!.x
                         val y = event.y.toInt()
                         if (layout != null) {
-                            val line: Int = layout.getLineForVertical(y) // get the line number from y position
+                            val line: Int =
+                                layout.getLineForVertical(y) // get the line number from y position
                             var offset: Int = layout.getOffsetForHorizontal(line, x) - 1 //
+
                             if (offset == -1) {
                                 offset = 0
                             }
@@ -103,15 +115,9 @@ fun getLine(
                             // get the word by offset (position) and filter the words by the word code
                             val htmlEscapedVerse = verse?.replace("<font color=\"#048383\">", "")
                                 ?.replace("</font>", "")
-                            words.filter {
-                                it.words.firstOrNull()?.code_v1?.contains(
-                                    htmlEscapedVerse?.get(offset)!!
-                                ) == true
-                            }
+                            word.filter { it.code_v1?.contains(htmlEscapedVerse!![offset]) == true }
                                 .firstOrNull()
                                 ?.let { word ->
-
-                                    // scroll to the selected word
                                     word.verse_key?.split(":")?.get(0)?.toInt().let { surah ->
                                         word.verse_key?.split(":")?.get(1)?.toInt()
                                             .let { ayah ->
@@ -122,10 +128,7 @@ fun getLine(
                                                     page
                                                 ).show(
                                                     (context as AppCompatActivity).supportFragmentManager,
-                                                    ""
-                                                )
-
-                                                offset = 0
+                                                    "")
                                             }
                                     }
                                 }
@@ -144,10 +147,18 @@ fun getLine(
         )
 
 
-
     }
 }
-
+suspend fun getWords(page: Int): List<WordItem> {
+    return QuranTable.getInstance().quranDao().getAyahLineByPage(page).flatMap { ayah ->
+        ayah.words.apply {
+            forEach {
+                it.verse_key = ayah.verse_key
+                it.page = ayah.page
+            }
+        }
+    }
+}
 
 fun getSurah(surah: String, context: Context): View {
     return LineSurahHeaderBinding.inflate(LayoutInflater.from(context)).apply {
@@ -219,7 +230,11 @@ fun parseSurahNamesFromJson(assets: AssetManager, fileName: String): List<SurahN
 
     return surahList
 }
-fun parseSurahNamesInformationFromJson(assets: AssetManager, fileName: String): List<SurahDescription> {
+
+fun parseSurahNamesInformationFromJson(
+    assets: AssetManager,
+    fileName: String
+): List<SurahDescription> {
     val inputStream: InputStream = assets.open(fileName)
     val reader = InputStreamReader(inputStream)
 
@@ -229,6 +244,7 @@ fun parseSurahNamesInformationFromJson(assets: AssetManager, fileName: String): 
 
     return surahList
 }
+
 fun parseAyahFromJson(assets: AssetManager, fileName: String): List<Ayah> {
     val inputStream: InputStream = assets.open(fileName)
     val reader = InputStreamReader(inputStream)
@@ -278,7 +294,7 @@ fun ArrayList<LanguageString>.getText(): String {
 }
 
 // fun Context.shareImage(arabic:String, translation:String, source:String, title:String?=null){ // this function is used to share the ayah image to other apps like whatsapp, facebook, etc.
-fun Context.saveImage(bitmap: Bitmap?, onSave:(Uri?)->Unit){
+fun Context.saveImage(bitmap: Bitmap?, onSave: (Uri?) -> Unit) {
     bitmap?.let {
         SaveBitmapToFile.getInstance(this, it) { file ->
             if (file != null) {
@@ -294,6 +310,7 @@ fun Context.saveImage(bitmap: Bitmap?, onSave:(Uri?)->Unit){
         }.execute()
     }
 }
+
 fun returnPagesNumber(): ArrayList<Int> {
     val pages = arrayListOf<Int>().apply {
         for (i in 1..604) {
@@ -302,22 +319,124 @@ fun returnPagesNumber(): ArrayList<Int> {
     }.toCollection(arrayListOf())
     return pages
 }
-fun findCurrentPage(pageNumber: Int?):Int?{
-    val soraNumbersQuran = mapOf(1 to 0, 2 to 1, 3 to 49, 4 to 76, 5 to 105, 6 to 127, 7 to 150,
-        8 to 176, 9 to 186, 10 to 207, 11 to 220, 12 to 234, 13 to 248, 14 to 254, 15 to 261,
-        16 to 266, 17 to 281, 18 to 292, 19 to 304, 20 to 311, 21 to 321, 22 to 331, 23 to 341,
-        24 to 349, 25 to 358, 26 to 366, 27 to 376, 28 to 384, 29 to 395, 30 to 403, 31 to 410,
-        32 to 414, 33 to 417, 34 to 427, 35 to 433, 36 to 439, 37 to 445, 38 to 452, 39 to 457,
-        40 to 466, 41 to 476, 42 to 482, 43 to 489, 44 to 495, 45 to 498, 46 to 501, 47 to 506,
-        48 to 510, 49 to 514, 50 to 517, 51 to 519, 52 to 522, 53 to 525, 54 to 527, 55 to 530,
-        56 to 533, 57 to 536, 58 to 541, 59 to 544, 60 to 548, 61 to 550, 62 to 552, 63 to 553,
-        64 to 555, 65 to 557, 66 to 559, 67 to 561, 68 to 563, 69 to 565, 70 to 567, 71 to 569,
-        72 to 571, 73 to 573, 74 to 574, 75 to 576, 76 to 577, 77 to 579, 78 to 581, 79 to 582,
-        80 to 584, 81 to 585, 82 to 586, 83 to 586, 84 to 588, 85 to 589, 86 to 590, 87 to 590,
-        88 to 591, 89 to 592, 90 to 593, 91 to 594, 92 to 594, 93 to 595, 94 to 595, 95 to 596,
-        96 to 596, 97 to 597, 98 to 597, 99 to 598, 100 to 598, 101 to 599, 102 to 599, 103 to 600,
-        104 to 600, 105 to 600, 106 to 601, 107 to 601, 108 to 601, 109 to 602, 110 to 602, 111 to 602,
-        112 to 603, 113 to 603, 114 to 603)
+
+fun findCurrentPage(pageNumber: Int?): Int? {
+    val soraNumbersQuran = mapOf(
+        1 to 0,
+        2 to 1,
+        3 to 49,
+        4 to 76,
+        5 to 105,
+        6 to 127,
+        7 to 150,
+        8 to 176,
+        9 to 186,
+        10 to 207,
+        11 to 220,
+        12 to 234,
+        13 to 248,
+        14 to 254,
+        15 to 261,
+        16 to 266,
+        17 to 281,
+        18 to 292,
+        19 to 304,
+        20 to 311,
+        21 to 321,
+        22 to 331,
+        23 to 341,
+        24 to 349,
+        25 to 358,
+        26 to 366,
+        27 to 376,
+        28 to 384,
+        29 to 395,
+        30 to 403,
+        31 to 410,
+        32 to 414,
+        33 to 417,
+        34 to 427,
+        35 to 433,
+        36 to 439,
+        37 to 445,
+        38 to 452,
+        39 to 457,
+        40 to 466,
+        41 to 476,
+        42 to 482,
+        43 to 489,
+        44 to 495,
+        45 to 498,
+        46 to 501,
+        47 to 506,
+        48 to 510,
+        49 to 514,
+        50 to 517,
+        51 to 519,
+        52 to 522,
+        53 to 525,
+        54 to 527,
+        55 to 530,
+        56 to 533,
+        57 to 536,
+        58 to 541,
+        59 to 544,
+        60 to 548,
+        61 to 550,
+        62 to 552,
+        63 to 553,
+        64 to 555,
+        65 to 557,
+        66 to 559,
+        67 to 561,
+        68 to 563,
+        69 to 565,
+        70 to 567,
+        71 to 569,
+        72 to 571,
+        73 to 573,
+        74 to 574,
+        75 to 576,
+        76 to 577,
+        77 to 579,
+        78 to 581,
+        79 to 582,
+        80 to 584,
+        81 to 585,
+        82 to 586,
+        83 to 586,
+        84 to 588,
+        85 to 589,
+        86 to 590,
+        87 to 590,
+        88 to 591,
+        89 to 592,
+        90 to 593,
+        91 to 594,
+        92 to 594,
+        93 to 595,
+        94 to 595,
+        95 to 596,
+        96 to 596,
+        97 to 597,
+        98 to 597,
+        99 to 598,
+        100 to 598,
+        101 to 599,
+        102 to 599,
+        103 to 600,
+        104 to 600,
+        105 to 600,
+        106 to 601,
+        107 to 601,
+        108 to 601,
+        109 to 602,
+        110 to 602,
+        111 to 602,
+        112 to 603,
+        113 to 603,
+        114 to 603
+    )
     if (pageNumber in soraNumbersQuran) // if pageNumber in map
         return soraNumbersQuran[pageNumber] // return value of pageNumber
     else

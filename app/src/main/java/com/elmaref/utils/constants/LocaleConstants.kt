@@ -30,6 +30,8 @@ object LocaleConstants {
     const val ADD_NEW_LOCATION = "Add New Location"
     const val ADD_NEW_FOLDER = "Add New Folder"
     const val ALL = "All"
+    const val AYAH_BASE_URL = "https://api.quran.com/api/v4/"
+    const val AYAH_ID_SERVICES="ayahID"
 
     //B
     const val BOOK = "Book"

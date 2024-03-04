@@ -1,10 +1,17 @@
 package com.quranscreen.utils
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.Reader
+import java.io.StringWriter
+import java.io.Writer
 
 object ViewUtils {
 

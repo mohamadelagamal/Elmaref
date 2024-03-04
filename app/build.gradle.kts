@@ -78,7 +78,7 @@ dependencies {
     // LottieAnimationView dependencies
     implementation("com.airbnb.android:lottie:4.2.2")
     // NavHostFragment dependencies
-// Navigation
+    // Navigation
     val navVersion = "2.7.1"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
@@ -89,5 +89,14 @@ dependencies {
 
     // add swipe refresh layout dependencies
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    // media player
+    implementation("androidx.media:media:1.4.3")
+
 
 }

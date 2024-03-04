@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
         <ImageView
             android:id="@+id/more_vert"
             android:layout_width="32dp"
@@ -33,7 +31,6 @@
             android:layout_height="220dp"
             android:transitionName="header"
             app:layout_constraintTop_toTopOf="parent"
-
             >
             <TextView
                 android:id="@+id/gregDate"

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.elmaref.ui.app.MyApplication
+import com.elmaref.utils.ProgressInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,12 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.Reader
+import java.io.StringWriter
+import java.io.Writer
 
 inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
     crossinline bindingInflater: (LayoutInflater) -> T) =
@@ -93,3 +100,19 @@ fun dpToPx(dp: Float): Float {
 }
 suspend fun <T> Flow<List<T>>.flattenToList() =
     flatMapConcat { it.asFlow() }.toList()
+fun getJsonStringFromAssets(context: Context, assetPath: String, progress:(Int)->Any?={}):String{
+    val `is`: InputStream = context.assets.open(assetPath)
+    ProgressInputStream(`is`).addListener {
+        progress.invoke(it)
+    }
+    val writer: Writer = StringWriter()
+    val buffer = CharArray(1024)
+    `is`.use { `is` ->
+        val reader: Reader = BufferedReader(InputStreamReader(`is`, "UTF-8"))
+        var n: Int
+        while (reader.read(buffer).also { n = it } != -1) {
+            writer.write(buffer, 0, n)
+        }
+    }
+    return writer.toString()
+}
