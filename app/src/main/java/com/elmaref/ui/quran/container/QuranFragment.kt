@@ -12,36 +12,34 @@ import androidx.lifecycle.ViewModelProvider
 import com.elmaref.R
 import com.elmaref.ui.app.MyApplication
 import com.elmaref.databinding.FragmentQuranBinding
+import com.elmaref.ui.base.fragment.BaseFragment
 import com.elmaref.ui.quran.paged.functions.findCurrentPage
 import com.elmaref.ui.quran.paged.quran.QuranPagedActivity
+import com.elmaref.ui.quran.saved.SavedAyahQuranActivity
 import com.example.quran.ui.adapter.ItemSurahNameAdapter
 import com.quranscreen.constants.LocaleConstants
 import com.quranscreen.utils.io
 
 
-class QuranFragment : Fragment() {
+class QuranFragment : BaseFragment<FragmentQuranBinding,QuranContainerViewModel>(),Navigator {
 
     lateinit var adapter: ItemSurahNameAdapter
-    lateinit var viewModel: QuranContainerViewModel
-    lateinit var viewDataBinding: FragmentQuranBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(QuranContainerViewModel::class.java)
+        viewModel.navigator = this
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        viewDataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_quran, container, false)
-        subscribeToLiveData()
-        return viewDataBinding.root
-    }
+    override fun getLayoutID(): Int = R.layout.fragment_quran
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = ItemSurahNameAdapter(requireActivity())
+        viewDataBinding.suranNameRecycler.adapter = adapter
+        viewDataBinding.vmQuran = viewModel
 
         adapter.onItemClickListener= object: ItemSurahNameAdapter.OnItemClickListener{
             override fun onItemClick(pos: Int) {
@@ -68,5 +66,11 @@ class QuranFragment : Fragment() {
         adapter = ItemSurahNameAdapter(requireActivity())
         viewDataBinding.suranNameRecycler.adapter = adapter
 
+    }
+
+    override fun openFavoriteAyahs() {
+        val intent = Intent(requireActivity(), SavedAyahQuranActivity::class.java)
+        startActivity(intent)
+        requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }

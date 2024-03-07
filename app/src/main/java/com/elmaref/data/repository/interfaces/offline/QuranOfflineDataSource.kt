@@ -1,5 +1,6 @@
 package com.elmaref.data.repository.interfaces.offline
 
+import androidx.lifecycle.LiveData
 import com.elmaref.data.model.quran.ayah.Ayah
 import com.elmaref.data.model.quran.joz.Juz
 import com.elmaref.data.model.quran.mark.QuranBookMark
@@ -28,5 +29,6 @@ interface QuranOfflineDataSource {
     suspend fun insertBookMark(bookMark: QuranBookMark)
     suspend fun getBookMarkById(id:String): QuranBookMark?
     suspend fun deleteBookmark(id: String,type:String)
+    suspend fun getSavedAyahList(): LiveData<List<QuranBookMark>>
 
 }

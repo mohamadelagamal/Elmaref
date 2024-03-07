@@ -13,12 +13,7 @@ import com.example.muslim.ui.base.activity.BaseViewModel
 abstract class BaseFragment <DB : ViewDataBinding, VM : BaseViewModel<*>>: Fragment() {
     lateinit var viewDataBinding: DB
     lateinit var viewModel: VM
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(makeViewModelProvider()::class.java)
 
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,5 +24,4 @@ abstract class BaseFragment <DB : ViewDataBinding, VM : BaseViewModel<*>>: Fragm
         return viewDataBinding.root
     }
     abstract fun getLayoutID (): Int
-    abstract fun makeViewModelProvider (): VM
 }

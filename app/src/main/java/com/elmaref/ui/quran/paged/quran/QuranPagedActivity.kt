@@ -1,11 +1,18 @@
 package com.elmaref.ui.quran.paged.quran
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.animation.Interpolator
+import android.widget.Scroller
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.viewpager.widget.ViewPager
 import com.elmaref.R
 import com.elmaref.databinding.ActivityQuranPagedBinding
 import com.elmaref.ui.app.MyApplication
@@ -36,6 +43,7 @@ class QuranPagedActivity() : BaseActivity<ActivityQuranPagedBinding, QuranPagedV
         }
         viewDataBinding.viewPager.setCurrentItem(currentPage, false)
 
+
     }
 
     override fun getLayoutID(): Int = R.layout.activity_quran_paged
@@ -45,3 +53,4 @@ class QuranPagedActivity() : BaseActivity<ActivityQuranPagedBinding, QuranPagedV
     )
 
 }
+

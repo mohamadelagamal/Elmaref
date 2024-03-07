@@ -37,13 +37,12 @@ class OnBoardLoadingViewModel : BaseViewModel<Navigator>() {
     suspend fun setQuranToDataBase() {
         try {
 
-
-            loopQuranDB()
             savedJuzToDB(context = context)
             savedSurahNameToDB(context = context)
             saveAyaToDB(context = context)
             tfseerToDB(context = context)
             savedSurahDescriptionToDB(context = context)
+            loopQuranDB()
             isQuranLoaded.postValue(ResultEnum.Success)
 
         } catch (exception: Exception) {

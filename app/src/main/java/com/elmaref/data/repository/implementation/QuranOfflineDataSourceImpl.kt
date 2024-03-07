@@ -1,5 +1,6 @@
 package com.elmaref.data.repository.implementation
 
+import androidx.lifecycle.LiveData
 import com.elmaref.data.model.quran.ayah.Ayah
 import com.elmaref.data.model.quran.joz.Juz
 import com.elmaref.data.model.quran.mark.QuranBookMark
@@ -86,5 +87,8 @@ class QuranOfflineDataSourceImpl(val myDataBase:QuranTable):QuranOfflineDataSour
         myDataBase.quranBookMarkDao().deleteBookmark(id,type)
     }
 
+    override suspend fun getSavedAyahList(): LiveData<List<QuranBookMark>>{
+       return myDataBase.quranBookMarkDao().getBookmarks()
+        }
 
 }

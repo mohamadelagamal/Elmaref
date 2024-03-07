@@ -81,6 +81,7 @@
 
         <service android:name=".ui.quran.paged.tfseer.servies.PlayAyahService" />
 
+
     </application>
 
 </manifest>

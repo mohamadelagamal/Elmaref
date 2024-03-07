@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="vmQuran"
+            type="com.elmaref.ui.quran.container.QuranContainerViewModel" />
     </data>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -73,6 +76,7 @@
                                     android:backgroundTint="@color/neutral_200"
                                     android:elevation="20dp"
                                     android:padding="5dp"
+                                    android:onClick="@{() -> vmQuran.openFavoriteAyahs()}"
                                     android:src="@drawable/ic_collection_book"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />

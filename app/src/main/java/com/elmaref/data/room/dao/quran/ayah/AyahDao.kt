@@ -11,7 +11,7 @@ import com.elmaref.data.room.tables.QuranTable
 @Dao
 interface AyahDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAyah(book:List<Ayah>)
     @Query("Select count() from ayah")
     suspend fun getAyahCount():Int

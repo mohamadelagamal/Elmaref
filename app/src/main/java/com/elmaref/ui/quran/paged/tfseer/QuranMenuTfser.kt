@@ -4,6 +4,8 @@ import android.Manifest
 import android.animation.ValueAnimator
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -58,6 +60,8 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
     var ayah: Int = 1
     var page: Int? = null
     lateinit var tafseerId: String
+    lateinit var surahNameArabic: String
+
 
     companion object {
 
@@ -91,6 +95,7 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
         ayah = getAyah()
         page = getPage()
         createChannelService()
+
     }
 
     private fun createChannelService() {
@@ -193,8 +198,6 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
             serviceIntent.putExtra(LocaleConstants.AYAH_ID_SERVICES, "${ayahIdFromAllQuran}" )
             requireActivity().startService(serviceIntent)
         }
-
-
     }
 
     fun pause() {
@@ -236,8 +239,12 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
                         val ayah_id = viewModel.getAyahId(surah, ayah)
                         // val mark = QuranTable.initializeDatabase(requireContext()).quranBookMarkDao()
                         val isBookmarked = viewModel.getBookMarkDao(ayah_id.toString())
+
+                        Log.d("QuranMenuTfser", "page: $page")
                         if (!isBookmarked) {
-                            viewModel.insertBookMark(ayah_id.toString(), BookmarkType.QURAN)
+                            viewModel.insertBookMark(ayah_id.toString(), BookmarkType.QURAN,
+                                surahName= surahNameArabic, verseNumber = ayah, pageNumber = page ?: 0
+                                )
                             main {
                                 changeBookMark("أَزَالُهُ مِنْ اَلْمُفَضَّلَةِ", true)
                             }
@@ -278,6 +285,8 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
             // get surah name from database
             viewModel.getSurahById(surah).firstOrNull()?.let {
                 main {
+                    surahNameArabic= it.translation?.get(2)?.text!!
+
                     viewDataBinding.title.text =
                         " ${it.translation?.get(2)?.text} ,  اَلْآيَةُ ( ${ayah.toArabicNumber()} )"
                     surahName = it.name!!
@@ -335,4 +344,6 @@ class QuranMenuTfser : BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
     }
+
+
 }

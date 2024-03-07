@@ -26,7 +26,8 @@ class ItemSurahNameAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewDataBinding :ItemSurahNameBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_surah_name,parent,false)
+        val viewDataBinding :ItemSurahNameBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+            R.layout.item_surah_name,parent,false)
         return ViewHolder(viewDataBinding)
     }
 

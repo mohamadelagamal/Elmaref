@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 interface PageDao {
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) // if the word is already exist, ignore it
+    @Insert(onConflict = OnConflictStrategy.IGNORE) // if the word is already exist, ignore it
     // if the word is already exist, replace it
     suspend fun insertAllPages(pagesList: List<VersesItem>)
     @Query("SELECT * FROM verse_table ")

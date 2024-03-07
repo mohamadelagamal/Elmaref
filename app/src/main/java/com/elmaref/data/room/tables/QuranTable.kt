@@ -29,7 +29,7 @@ import com.quranscreen.room.dao.quran.names.SurahDescriptionDao
         Ayah::class, Tafseer::class, SurahDescription::class,
         QuranBookMark::class],
     // version is used to create a new version of the database
-    version = 1,
+    version = 3,
     // exportSchema is used to export the schema of the database to a file
     exportSchema = false
 )

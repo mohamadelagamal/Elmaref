@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elmaref.R
@@ -130,7 +131,9 @@ class ItemSurahAdapter(
                 }
             }
         }
-      //
+      // when you move to left use anmation left
+//        val animation = AnimationUtils.loadAnimation(context, R.anim.slide_out_right)
+//        binding.itemView.startAnimation(animation)
 
 }
 

@@ -84,6 +84,10 @@ class PlayAyahService:Service() {
                 prepare()
                 start()
             }
+            mediaPlayer?.setOnCompletionListener {
+                val intent = Intent(ServiceAction.STOP_MUSIC.toString())
+                sendBroadcast(intent)
+            }
         }
 
 

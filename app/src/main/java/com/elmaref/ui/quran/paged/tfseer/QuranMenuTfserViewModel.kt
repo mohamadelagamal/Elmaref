@@ -38,8 +38,8 @@ class QuranMenuTfserViewModel:BaseViewModel<Navigator>() {
     suspend fun getBookMarkDao(id:String):Boolean{
         return quranOfflineDataSource.getBookMarkById(id) != null // if not null return true else return false
     }
-    suspend fun insertBookMark(idString: String,type:String){
-        val quranBookMark = QuranBookMark(idString = idString,type = type)
+    suspend fun insertBookMark(idString: String,type:String,surahName:String,verseNumber:Int,pageNumber:Int){
+        val quranBookMark = QuranBookMark(idString = idString,type = type, surahName = surahName, verseNumber = verseNumber, pageNumber = pageNumber)
         quranOfflineDataSource.insertBookMark(quranBookMark)
     }
     suspend fun deleteBookMark(idString: String,type:String){

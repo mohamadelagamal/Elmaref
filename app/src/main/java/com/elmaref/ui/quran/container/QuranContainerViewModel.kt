@@ -10,7 +10,10 @@ import com.example.muslim.ui.base.activity.BaseViewModel
 import com.quranscreen.model.quran.names.SurahDescription
 import kotlinx.coroutines.launch
 
-class QuranContainerViewModel: ViewModel() {
+class QuranContainerViewModel: BaseViewModel<Navigator>() {
 
+    fun openFavoriteAyahs(){
+        navigator?.openFavoriteAyahs()
+    }
 
 }
