@@ -85,6 +85,7 @@ class QuranFragment : BaseFragment<FragmentQuranBinding, QuranContainerViewModel
         val intent = Intent(requireActivity(), SavedAyahQuranActivity::class.java)
         startActivity(intent)
         requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
     }
 
     override fun openSearch() {
