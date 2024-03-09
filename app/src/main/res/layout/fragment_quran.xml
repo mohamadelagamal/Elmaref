@@ -100,6 +100,7 @@
                         </LinearLayout>
 
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/search_card"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="20dp"
@@ -107,6 +108,7 @@
                             android:backgroundTint="@color/transparent">
 
                             <androidx.appcompat.widget.SearchView
+                                android:id="@+id/searchView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@color/transparent"
@@ -114,8 +116,9 @@
                                 android:queryHint="Search"
                                 android:theme="@style/ThemeOverlay.AppCompat.DayNight"
                                 app:iconifiedByDefault="false"
-                                app:queryHint="البحث في اَلْقُرْآن اَلْكَرِيمِ"
-
+                                android:enabled="false"
+                                android:inputType="none"
+                                app:defaultQueryHint="@string/search_quran_string"
                                 />
                         </com.google.android.material.card.MaterialCardView>
 

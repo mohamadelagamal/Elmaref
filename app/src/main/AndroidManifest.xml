@@ -13,10 +13,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
+        android:name=".ui.app.MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,20 +26,25 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/icon_application"
         android:supportsRtl="true"
-        android:name=".ui.app.MyApplication"
         android:theme="@style/Theme.Elmaref"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".ui.quran.search.SearchQuranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.salat.options.us.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.salat.options.setting.SettingActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.quran.saved.SavedAyahQuranActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.quran.paged.tfseer.options.share.ShareAyahActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.splash.SplashAppActivity"
             android:exported="true">
@@ -55,7 +62,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- windowSoftInputMode keep hiding bottom navigation bar -->
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.anni.shareimage.fileprovider"
@@ -69,19 +75,17 @@
         <activity
             android:name=".ui.quran.paged.quran.QuranPagedActivity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.shalat.compass.CompassActivity"
+            android:name=".ui.salat.options.compass.CompassActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDdYILg7dWrd3SduSTONSk0AuzBk8As0hw" />
 
         <service android:name=".ui.quran.paged.tfseer.servies.PlayAyahService" />
-
-
     </application>
 
 </manifest>

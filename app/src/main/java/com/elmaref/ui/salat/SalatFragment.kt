@@ -1,35 +1,38 @@
-package com.elmaref.ui.shalat
+package com.elmaref.ui.salat
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.elmaref.R
-import com.elmaref.ui.shalat.compass.CompassActivity
+import com.elmaref.databinding.FragmentSalatBinding
+import com.elmaref.ui.base.fragment.BaseFragment
+import com.elmaref.ui.salat.options.compass.CompassActivity
+import com.elmaref.ui.salat.options.setting.SettingActivity
+import com.elmaref.ui.salat.options.us.AboutUsActivity
 
 
-class ShalatFragment : Fragment() {
+class SalatFragment : BaseFragment<FragmentSalatBinding,SalatViewModel>(),Navigator {
+    override fun getLayoutID(): Int {
+        return R.layout.fragment_salat
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel = ViewModelProvider(this).get(SalatViewModel::class.java)
+        viewModel.navigator= this
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shalat, container, false)
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewDataBinding.salat=viewModel
         val quibla = requireActivity().findViewById<ImageView>(R.id.more_vert)
 
         quibla.setOnClickListener {
@@ -64,51 +67,33 @@ class ShalatFragment : Fragment() {
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.qibla -> {
-                        val intent = Intent(requireContext(), CompassActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().overridePendingTransition(
-                            android.R.anim.fade_in,
-                            android.R.anim.fade_out
-                        )
-
+                        movingActivity(CompassActivity::class.java)
                         true
                     }
                     R.id.settings -> {
-                        Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show()
+                       movingActivity(SettingActivity::class.java)
                         true
                     }
                     R.id.about -> {
-                        Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show()
+                        movingActivity(AboutUsActivity::class.java)
                         true
                     }
                     else -> false
                 }
             }
             popup.show()
-
         }
 
     }
 
-       override fun onOptionsItemSelected(item: MenuItem): Boolean {
-            return when (item.itemId) {
-                R.id.qibla-> {
-                    Toast.makeText(requireContext(), "Search", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.settings -> {
-                    Toast.makeText(requireContext(), "Settings", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.about -> {
-                    Toast.makeText(requireContext(), "about us", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
-            }
-        }
-
-
+    fun movingActivity(activity:Class<*>){
+        val intent = Intent(requireContext(), activity)
+        startActivity(intent)
+        requireActivity().overridePendingTransition(
+            android.R.anim.fade_in,
+            android.R.anim.fade_out
+        )
+    }
 
 
 }

@@ -37,7 +37,9 @@
             app:layout_constraintTop_toBottomOf="@id/appBarLayout"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
-            tools:listitem="@layout/item_saved_ayah_quarn" />
+            tools:listitem="@layout/item_saved_ayah_quarn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

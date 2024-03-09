@@ -11,9 +11,11 @@ import com.quranscreen.model.quran.names.SurahDescription
 import kotlinx.coroutines.launch
 
 class QuranContainerViewModel: BaseViewModel<Navigator>() {
-
     fun openFavoriteAyahs(){
         navigator?.openFavoriteAyahs()
     }
 
+    fun openSearch(){
+        navigator?.openSearch()
+    }
 }

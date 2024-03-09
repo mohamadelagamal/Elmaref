@@ -1,4 +1,4 @@
-package com.elmaref.ui.shalat.compass
+package com.elmaref.ui.salat.options.compass
 
 import android.hardware.Sensor
 import android.hardware.SensorEvent

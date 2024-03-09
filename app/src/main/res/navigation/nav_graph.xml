@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/firstScreen"
-        android:name="com.elmaref.ui.shalat.ShalatFragment"
+        android:name="com.elmaref.ui.salat.SalatFragment"
         android:label="fragment_first_screen"
-        tools:layout="@layout/fragment_shalat" >
+        tools:layout="@layout/fragment_salat" >
         <action
             android:id="@+id/action_firstScreen_to_secondScreen"
             app:destination="@id/secondScreen" />

@@ -24,4 +24,5 @@
     <string name="gps_settings_text">GPS is not</string>
     <string name="settings_button_ok">settings</string>
     <string name="settings_button_cancel">no</string>
+    <string name="search_quran_string">البحث في اَلْقُرْآن اَلْكَرِيمِ</string>
 </resources>
