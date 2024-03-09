@@ -20,6 +20,7 @@ class ContainerViewModel: BaseViewModel<Navigator>() {
         getSurahNames()
         getJuz()
         checkPageQuran()
+
     }
 
     private fun getJuz() {
