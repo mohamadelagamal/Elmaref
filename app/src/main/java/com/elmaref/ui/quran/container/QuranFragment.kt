@@ -81,6 +81,7 @@ class QuranFragment : BaseFragment<FragmentQuranBinding, QuranContainerViewModel
     }
 
 
+
     override fun openFavoriteAyahs() {
         val intent = Intent(requireActivity(), SavedAyahQuranActivity::class.java)
         startActivity(intent)
