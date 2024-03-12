@@ -8,7 +8,7 @@ object LocaleConstants {
     const val ARABIC_TEXT = "Arabic Text"
     const val AYAH = "Ayah"
     const val ARABIC = "Arabic"
-    const val ASR = "Asr"
+    const val ASR = "العصر"
     const val ADD_TO_BOOKMARK = "Add to bookmarks"
     const val AYAH_N = "Ayah %s"
     const val AL_QURAN_DATA_HAS_SUCCESSFULLY_BEEN_DOWNLOADED = "Al-Qur'an data has successfully been downloaded"
@@ -53,7 +53,7 @@ object LocaleConstants {
     const val CANCELLED = "Cancelled"
 
     //D
-    const val DHUHR = "Dhuhr"
+    const val DHUHR = "الظهر"
     const val DZIKIR_BEFORE_SLEEP = "Dzikir Before Sleep"
     const val DZIKIR_AFTER_SHALAT = "Dzikir After Shalat"
     const val OF = "%s of %s"
@@ -85,7 +85,7 @@ object LocaleConstants {
     const val END_DATE = "End date"
 
     //F
-    const val FAJR = "Fajr"
+    const val FAJR = "الفجر"
     const val FETCHING_BOOKS = "Fetching Books"
     const val FETCHING_PRAYERS = "Fetching Prayers"
     const val PREPARING_QURAN_DATA = "Preparing Quran Data"
@@ -106,7 +106,7 @@ object LocaleConstants {
 
     //I
     const val ISLAMIC_LECTURES = "IslamicLectures"
-    const val ISYA = "Isya"
+    const val ISYA = "العشاء"
     const val INACTIVE = "Inactive"
     const val ITS_TIME_TO_READ_THE_QURAN = "It's time to read the Qur'an!"
 
@@ -117,6 +117,7 @@ object LocaleConstants {
     //K
     const val KHATAM_SESSION = "Khatam Session"
     const val KHATAM_TARGET_MONTH_N = "Khattam Target, %s"
+    const val PREF_KEY_USER_CITY = "pref_user_city"
 
     //L
     const val LEFT_UNTIL = "left until"
@@ -132,7 +133,7 @@ object LocaleConstants {
     const val LECTURE_NOTES = "Lecture Notes"
 
     //M
-    const val MAGHRIB = "Maghrib"
+    const val MAGHRIB = "المغرب"
     const val MINUTE = "Minute"
     const val MORNING_DZIKIR = "Morning Dzikir"
     const val MARK_LAST_READ_AUTOMATICALLY = "Mark last read automatically"

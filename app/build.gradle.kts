@@ -99,5 +99,6 @@ dependencies {
     // media player
     implementation("androidx.media:media:1.4.3")
 
+    implementation("com.github.msarhan:ummalqura-calendar:1.1.9")
 
 }

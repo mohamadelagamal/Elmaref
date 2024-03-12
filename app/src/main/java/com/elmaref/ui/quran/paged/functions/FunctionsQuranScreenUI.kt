@@ -442,3 +442,38 @@ fun findCurrentPage(pageNumber: Int?): Int? {
     else
         return null
 }
+fun String.toArabicFormat(): String {
+    return this.replace("Sun", "الأحد")
+        .replace("Mon", "الإثنين")
+        .replace("Tue", "الثلاثاء")
+        .replace("Wed", "الأربعاء")
+        .replace("Thu", "الخميس")
+        .replace("Fri", "الجمعة")
+        .replace("Sat", "السبت")
+        .replace("Jan", "يناير")
+        .replace("Feb", "فبراير")
+        .replace("Mar", "مارس")
+        .replace("Apr", "أبريل")
+        .replace("May", "مايو")
+        .replace("Jun", "يونيو")
+        .replace("Jul", "يوليو")
+        .replace("Aug", "أغسطس")
+        .replace("Sep", "سبتمبر")
+        .replace("Oct", "أكتوبر")
+        .replace("Nov", "نوفمبر")
+        .replace("Dec", "ديسمبر")
+        .replace("AM", "صَبَاحًا")
+        .replace("PM", "مَسَاءًا")
+        .replace("0", "٠")
+        .replace("1", "١")
+        .replace("2", "٢")
+        .replace("3", "٣")
+        .replace("4", "٤")
+        .replace("5", "٥")
+        .replace("6", "٦")
+        .replace("7", "٧")
+        .replace("8", "٨")
+        .replace("9", "٩")
+
+
+}

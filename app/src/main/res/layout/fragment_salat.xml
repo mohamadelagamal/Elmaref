@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -36,7 +36,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="250dp"
                 android:transitionName="header"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -46,10 +46,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="اَلْأَرْبِعَاء 4 نُوفَمْبِر"
+                    tools:text="اَلْأَرْبِعَاء 4 نُوفَمْبِر"
+                    android:text="@{salat.getGregorianDate()}"
                     android:elevation="10dp" />
 
                 <TextView
@@ -58,10 +59,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/regular"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="@id/gregDate"
                     app:layout_constraintTop_toBottomOf="@id/gregDate"
-                    android:text="1445/5/22 (جمادى الأولى)"
+                    tools:text="1445/5/22 (جمادى الأولى)"
+                    android:text="@{salat.getHijriDate()}"
                     android:elevation="10dp" />
 
                 <RelativeLayout
@@ -109,12 +111,11 @@
 
                     <TextView
                         android:id="@+id/textNextPrayer"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:layout_marginTop="25dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -134,7 +135,7 @@
 
                     <TextView
                         android:id="@+id/textUntil"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:textAlignment="center"
@@ -168,35 +169,23 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textUntil"
-                        android:text="القاهرة" />
+                        android:text="القاهرة"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <!--            <RelativeLayout-->
-                <!--                android:id="@+id/viewHeaderFooter"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="32dp"-->
-                <!--                android:background="@drawable/ic_footer"-->
-                <!--                android:elevation="2dp"-->
-                <!--                app:layout_constraintBottom_toBottomOf="parent">-->
-
-
-                <!--            </RelativeLayout>-->
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <LinearLayout
+         </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/praytime_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:alpha="0"
                 android:orientation="vertical"
-                android:translationY="300dp"
-                app:layout_constraintTop_toBottomOf="@id/header" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:listitem="@layout/item_home_praytime"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

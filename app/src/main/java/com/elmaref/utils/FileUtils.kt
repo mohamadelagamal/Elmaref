@@ -2,9 +2,12 @@
 package com.elmaref.utils
 
 import android.content.Context
+import android.os.CountDownTimer
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.pixplicity.easyprefs.library.Prefs
+import com.quranscreen.constants.LocaleConstants.PREF_KEY_USER_CITY
 import java.io.*
 
 fun <T:Any>Context.getFromAssets(path:String):T{
@@ -68,5 +71,18 @@ object FileUtils {
         }
         return writer.toString()
     }
-
+    var userCity: String
+        get() = Prefs.getString(PREF_KEY_USER_CITY, "")
+        set(value) {
+            Prefs.putString(PREF_KEY_USER_CITY, value)
+        }
+    fun tick(millisInFuture:Long, interval:Long,onTick:()->Unit): CountDownTimer {
+        return object: CountDownTimer(millisInFuture,interval){
+            override fun onTick(millisUntilFinished: Long) {
+                onTick.invoke()
+            }
+            override fun onFinish() {
+            }
+        }
+    }
 }
