@@ -7,6 +7,7 @@
         <variable
             name="salat"
             type="com.elmaref.ui.salat.SalatViewModel" />
+
     </data>
 
     <FrameLayout
@@ -28,7 +29,7 @@
                 android:padding="15dp"
                 android:layout_marginHorizontal="5dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:tint="@color/white"
                 android:elevation="10dp" />
 
@@ -47,7 +48,7 @@
                     android:layout_margin="16dp"
                     android:textColor="@color/white"
                     android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="اَلْأَرْبِعَاء 4 نُوفَمْبِر"
                     android:text="@{salat.getGregorianDate()}"
@@ -60,7 +61,7 @@
                     android:fontFamily="@font/regular"
                     android:textColor="@color/white"
                     android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@id/gregDate"
+                    app:layout_constraintEnd_toEndOf="@id/gregDate"
                     app:layout_constraintTop_toBottomOf="@id/gregDate"
                     tools:text="1445/5/22 (جمادى الأولى)"
                     android:text="@{salat.getHijriDate()}"
@@ -131,7 +132,9 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textNextPrayer"
-                        android:text="04:09" />
+                        tools:text="04:09"
+                        android:text="@{salat.textPrayerTime}"
+                        />
 
                     <TextView
                         android:id="@+id/textUntil"
@@ -144,7 +147,9 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textPraytime"
-                        android:text="تبقى 6h 19m حتى الفجر" />
+                        tools:text="تبقى 6h 19m حتى الفجر"
+                        android:text="@{salat.textUntil}"
+                        />
 
                     <ImageView
                         android:id="@+id/locationIcon"
@@ -153,9 +158,10 @@
                         android:padding="3dp"
                         android:src="@drawable/ic_location"
                         app:layout_constraintBottom_toBottomOf="@id/address"
-                        app:layout_constraintLeft_toRightOf="@id/address"
+                        app:layout_constraintRight_toLeftOf="@id/address"
                         app:layout_constraintTop_toTopOf="@id/address"
-                        app:tint="@color/white" />
+                        app:tint="@color/white"
+                        />
 
                     <TextView
                         android:id="@+id/address"
@@ -169,7 +175,8 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textUntil"
-                        android:text="القاهرة"
+                        tools:text="القاهرة"
+                        android:text="@{salat.address}"
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

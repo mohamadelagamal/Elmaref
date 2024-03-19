@@ -4,23 +4,29 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elmaref.R
 import com.elmaref.data.model.enums.RingType
+import com.elmaref.data.model.salat.PrayerTime
 import com.elmaref.data.model.salat.SalatTime
 import com.elmaref.databinding.ItemHomePraytimeBinding
-import com.quranscreen.constants.LocaleConstants
+import kotlinx.coroutines.channels.ticker
 
 class SalatTimeAdapter(val prayerViewList: List<SalatTime>) :
     RecyclerView.Adapter<SalatTimeAdapter.PrayTimeViewHolder>() {
 
     lateinit var context: Context
+    var updateData:List<PrayerTime> ?=null
+    var updateData2:List<String?> ?=null
+
 
     class PrayTimeViewHolder(var viewDataBinding: ItemHomePraytimeBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
-
+            fun bind(prayTime: SalatTime) {
+                viewDataBinding.prayBinding = prayTime
+                viewDataBinding.invalidateAll()
+            }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrayTimeViewHolder {
@@ -39,11 +45,13 @@ class SalatTimeAdapter(val prayerViewList: List<SalatTime>) :
     }
 
     override fun onBindViewHolder(holder: PrayTimeViewHolder, position: Int) {
+        Log.e("prayerTime", "${position}")
         val prayTime = prayerViewList[position]
-        holder.viewDataBinding.title.text = prayTime.prayTimeName
-        holder.viewDataBinding.icon.setImageResource(prayTime.prayIcon!!)
-        holder.viewDataBinding.praytime.text = prayTime.prayTime
-        holder.viewDataBinding.until.text = prayTime.prayPassedSalat
+
+        holder.bind(prayerViewList[position])
+
+
+        holder.viewDataBinding.until.text= (updateData2?.get(position) ?: "تحميل...").toString()
 
         // check of ring type and change icon
         when (prayTime.ringType) {
@@ -72,12 +80,11 @@ class SalatTimeAdapter(val prayerViewList: List<SalatTime>) :
                 }
             }
         }
-
         // check in item 2 and change background
-        if (position==2){
-
-        }
-
     }
 
+    fun changeData(data: List<String?>){
+        updateData2=data
+        notifyDataSetChanged()
+    }
 }

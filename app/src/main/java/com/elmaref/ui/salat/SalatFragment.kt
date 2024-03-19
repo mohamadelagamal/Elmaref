@@ -2,26 +2,40 @@ package com.elmaref.ui.salat
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.elmaref.R
+import com.elmaref.data.model.salat.PrayerTime
 import com.elmaref.databinding.FragmentSalatBinding
-import com.elmaref.databinding.ItemHomePraytimeBinding
 import com.elmaref.ui.base.fragment.BaseFragment
 import com.elmaref.ui.salat.options.compass.CompassActivity
 import com.elmaref.ui.salat.options.setting.SettingActivity
 import com.elmaref.ui.salat.options.us.AboutUsActivity
 import com.elmaref.data.model.salat.SalatTime
+import com.elmaref.ui.quran.paged.functions.toArabicNumber
 import com.elmaref.ui.salat.adapter.SalatTimeAdapter
+import com.elmaref.utils.FileUtils
+import com.elmaref.utils.Prefs
+import com.elmaref.utils.changeFormat
+import com.elmaref.utils.convertTo12HourFormat
+import com.elmaref.utils.praytimes.PrayerTimeHelper
+import com.elmaref.utils.removeZeroFromLeft
 import com.quranscreen.constants.LocaleConstants
-import com.quranscreen.constants.LocaleConstants.locale
+import com.quranscreen.constants.LocaleProvider
+import java.util.Calendar
 
 
 class SalatFragment : BaseFragment<FragmentSalatBinding, SalatViewModel>(), Navigator {
 
     lateinit var adapter: SalatTimeAdapter
+    val prayerTime: PrayerTime by lazy {
+        Prefs.praytime
+    }
+    var newtimer: CountDownTimer? = null
+
     override fun getLayoutID(): Int {
         return R.layout.fragment_salat
     }
@@ -35,8 +49,12 @@ class SalatFragment : BaseFragment<FragmentSalatBinding, SalatViewModel>(), Navi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewDataBinding.salat = viewModel
+
+
+        viewModel.buildTimer(requireContext())
+        // get current time
+
         val quibla = requireActivity().findViewById<ImageView>(R.id.more_vert)
 
         quibla.setOnClickListener {
@@ -90,20 +108,104 @@ class SalatFragment : BaseFragment<FragmentSalatBinding, SalatViewModel>(), Navi
             }
             popup.show()
         }
+
+
         val list = ArrayList<SalatTime>(
             listOf(
-                SalatTime(LocaleConstants.FAJR, "٤:٣٠", R.drawable.ic_fajr_primary, "اجتاز",viewModel.ringFajr),
-                SalatTime(LocaleConstants.DHUHR, "١٢:٣٠", R.drawable.ic_dhuhr_primary, "في 3 ساعات",viewModel.ringDhuhr),
-                SalatTime(LocaleConstants.ASR, "٣:٣٠", R.drawable.ic_asr_primary, "في 6 ساعات",viewModel.ringAsr),
-                SalatTime(LocaleConstants.MAGHRIB, "٦:٤", R.drawable.ic_maghrib_primary, "في 9 ساعات",viewModel.ringMaghrib),
-                SalatTime(LocaleConstants.ISYA, "٨:٣٠", R.drawable.ic_isya_primary, "في 11 ساعة",viewModel.ringIsya)
+                SalatTime(
+                    LocaleConstants.FAJR,
+                    prayerTime.fajr?.convertTo12HourFormat()?.toArabicNumber()?.removeZeroFromLeft()
+                        .toString(),
+                    R.drawable.ic_fajr_primary,
+                    viewModel.untilFajr.get()?.changeFormat(),
+                    viewModel.ringFajr
+                ),
+                SalatTime(
+                    LocaleConstants.DHUHR,
+                    prayerTime.dhuhr?.convertTo12HourFormat()?.toArabicNumber()
+                        ?.removeZeroFromLeft().toString(),
+                    R.drawable.ic_dhuhr_primary,
+                    "في 3 ساعات",
+                    viewModel.ringDhuhr
+                ),
+                SalatTime(
+                    LocaleConstants.ASR,
+                    prayerTime.asr?.convertTo12HourFormat()?.toArabicNumber().removeZeroFromLeft()
+                        ?.toString(),
+                    R.drawable.ic_asr_primary,
+                    "في 6 ساعات",
+                    viewModel.ringAsr
+                ),
+                SalatTime(
+                    LocaleConstants.MAGHRIB,
+                    prayerTime.maghrib?.convertTo12HourFormat()?.toArabicNumber()
+                        ?.removeZeroFromLeft()?.toString(),
+                    R.drawable.ic_maghrib_primary,
+                    "في 9 ساعات",
+                    viewModel.ringMaghrib
+                ),
+                SalatTime(
+                    LocaleConstants.ISYA,
+                    prayerTime.isya?.convertTo12HourFormat()?.toArabicNumber()?.removeZeroFromLeft()
+                        .toString(),
+                    R.drawable.ic_isya_primary,
+                    "في 11 ساعة",
+                    viewModel.ringIsya
+                )
             )
         )
         adapter = SalatTimeAdapter(list)
         viewDataBinding.praytimeContainer.adapter = adapter
 
+        newtimer?.cancel()
+        newtimer = FileUtils.tick(Long.MAX_VALUE, 1000) {
+            if (Calendar.getInstance().get(Calendar.MINUTE) != Calendar.getInstance()
+                    .apply { time = viewModel.time.value!! }
+                    .get(Calendar.MINUTE)
+            ) {
+                viewModel.time.value = Calendar.getInstance().apply {
+                    add(Calendar.MINUTE, 1)
+                }.time
+            }
+            var fajr = PrayerTimeHelper.countTimeLight(
+                Prefs.praytime.fajr ?: "",
+                LocaleProvider.getInstance().getString(LocaleConstants.FAJR)
+            )
+            var dhuhr = PrayerTimeHelper.countTimeLight(
+                Prefs.praytime.dhuhr ?: "",
+                LocaleProvider.getInstance().getString(LocaleConstants.DHUHR)
+            )
+            var asr = PrayerTimeHelper.countTimeLight(
+                Prefs.praytime.asr ?: "",
+                LocaleProvider.getInstance().getString(LocaleConstants.ASR)
+            )
+            var maghrib = PrayerTimeHelper.countTimeLight(
+                Prefs.praytime.maghrib ?: "",
+                LocaleProvider.getInstance().getString(LocaleConstants.MAGHRIB)
+            )
+            var isya = PrayerTimeHelper.countTimeLight(
+                Prefs.praytime.isya ?: "",
+                LocaleProvider.getInstance().getString(LocaleConstants.ISYA)
+            )
+            var sunrah = PrayerTimeHelper.countTimeLight(
+                Prefs.praytime.sunrise ?: "",
+                LocaleProvider.getInstance().getString(LocaleConstants.SUNRISE)
+            )
+            var pray = listOf(
+                fajr.changeFormat(),
+                dhuhr.changeFormat(),
+                asr.changeFormat(),
+                maghrib.changeFormat(),
+                isya.changeFormat(),
+                sunrah.changeFormat()
+            )
+            adapter.changeData(pray)
+        }
+        newtimer?.start()
+
 
     }
+
 
     fun movingActivity(activity: Class<*>) {
         val intent = Intent(requireContext(), activity)
@@ -113,49 +215,5 @@ class SalatFragment : BaseFragment<FragmentSalatBinding, SalatViewModel>(), Navi
             android.R.anim.fade_out
         )
     }
-
-    fun configurePraytimes() {
-        addPraytime(
-            LocaleConstants.FAJR.locale(),
-            R.drawable.ic_fajr_primary,
-
-            )
-        addPraytime(
-            LocaleConstants.DHUHR.locale(),
-            R.drawable.ic_dhuhr_primary,
-
-            )
-        addPraytime(
-            LocaleConstants.ASR.locale(),
-            R.drawable.ic_asr_primary,
-
-            )
-        addPraytime(
-            LocaleConstants.MAGHRIB.locale(),
-            R.drawable.ic_maghrib_primary,
-
-            )
-        addPraytime(
-            LocaleConstants.ISYA.locale(),
-            R.drawable.ic_isya_primary,
-        )
-    }
-
-    fun addPraytime(
-        title: String,
-        icon: Int,
-    ) {
-        val view = ItemHomePraytimeBinding.inflate(LayoutInflater.from(requireActivity())).apply {
-            this.title.text = title
-            this.icon.setImageResource(icon)
-            this.praytime
-        }
-
-
-        //   view.ring.configureRing(title)
-
-        viewDataBinding?.praytimeContainer?.addView(view.root)
-    }
-
 
 }

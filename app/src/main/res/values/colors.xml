@@ -40,4 +40,5 @@
 
     <color name="background_item">#fff</color>
     <color name="lightItemColor">#000000</color>
+    <color name="read">#FF0000</color>
 </resources>

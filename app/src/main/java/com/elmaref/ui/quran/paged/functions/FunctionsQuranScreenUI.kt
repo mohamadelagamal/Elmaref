@@ -138,7 +138,9 @@ fun getLine(
                 true
             }
         }
-        //  setTextIsSelectable(true)
+
+       // setTextIsSelectable(true) // make the text selectable to copy it
+
         textAlignment = TextView.TEXT_ALIGNMENT_CENTER
         setTextColor(context.resources.getColor(R.color.quran_names_light_mode))
         TextViewCompat.setAutoSizeTextTypeWithDefaults(
@@ -187,7 +189,7 @@ fun getBismillah(context: Context): View {
     return TextView(context).apply {
         typeface = Typeface.createFromAsset(context.assets, "fonts/Bismillah.ttf")
         text = "﷽"
-        setTextIsSelectable(true)
+        setTextIsSelectable(false)
         setTextColor(resources.getColor(R.color.quran_names_light_mode))
         // copy the text to clipboard when long click on it
         TextViewCompat.setAutoSizeTextTypeWithDefaults(
